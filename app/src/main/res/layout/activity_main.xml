@@ -1,18 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="121dp"
+        android:layout_marginTop="172dp"
+        android:text="Iniciar Sesión"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etUsuario"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="-25dp"
+        android:layout_toStartOf="@+id/etUsuario"
+        android:text="Rut"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etUsuario"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitulo"
+        android:layout_alignStart="@+id/tvTitulo"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="28dp"
+        android:ems="11"
+        android:hint="Con digito verificador y sin guión"
+        android:inputType="textPersonName"
+        android:textSize="16sp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etPassword"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/etPassword"
+        android:text="Contraseña"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etUsuario"
+        android:layout_alignStart="@+id/etUsuario"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="31dp"
+        android:ems="11"
+        android:hint="Contraseña"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btIniciarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etPassword"
+        android:layout_alignEnd="@+id/etPassword"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="82dp"
+        android:text="Iniciar Sesión" />
+
+    <Button
+        android:id="@+id/btCrearCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btIniciarSesion"
+        android:layout_alignEnd="@+id/btIniciarSesion"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="-27dp"
+        android:text="Crear nueva cuenta" />
+
+    <TextView
+        android:id="@+id/tvOlvidopassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_alignStart="@+id/etPassword"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="173dp"
+        android:text="¿Olvidó su contraseña?" />
+
+
+</RelativeLayout>
