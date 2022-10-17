@@ -218,19 +218,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="11">
+        android:layout_weight="10">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Seleccione un método de pago">
-        </TextView>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/etMetodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccione un método de pago"></TextView>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/etMetodo"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="42dp"
+                android:layout_marginBottom="-69dp"
+                android:text="Metodo1"
+                />
+
+        </RelativeLayout>
+
+
+
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="9">
+        android:layout_weight="11">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/etAyuda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ayuda"
+                android:textColor="@color/purple_500"
+                android:layout_marginHorizontal="340dp">
+
+            </TextView>
+
+        </RelativeLayout>
+
+
+
+
     </LinearLayout>
 
 
