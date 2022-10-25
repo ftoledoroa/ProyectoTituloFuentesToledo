@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454329994884",
+    "project_id": "proyectofuentestoledo",
+    "storage_bucket": "proyectofuentestoledo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454329994884:android:9fac0d7d54ad3f5dd97cd1",
+        "android_client_info": {
+          "package_name": "com.example.proyectotitulofuentestoledo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454329994884-cdq9ke32jrt35oquu14jfkp82gfaa3po.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4tGuaWjODR04Pfia7CIikEXk_JtjfVw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454329994884-cdq9ke32jrt35oquu14jfkp82gfaa3po.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

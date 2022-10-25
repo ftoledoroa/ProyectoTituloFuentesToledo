@@ -26,49 +26,26 @@ android:orientation="vertical">
         android:textSize="28sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="81dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etRut"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="-25dp"
-        android:layout_toStartOf="@+id/etRut"
-        android:text="Rut"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
     <EditText
-        android:id="@+id/etRut"
+        android:id="@+id/etCorreo"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitulo"
         android:layout_alignStart="@+id/tvTitulo"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="-31dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="25dp"
         android:ems="11"
-        android:hint="Con digito verificador y sin guión"
+        android:hint="Correo Electrónico"
         android:inputType="textPersonName"
         android:textSize="16sp" />
-
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etPassword"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
-        android:layout_toStartOf="@+id/etPassword"
-        android:text="Contraseña"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etRut"
-        android:layout_alignStart="@+id/etRut"
+        android:layout_below="@+id/etCorreo"
+        android:layout_alignStart="@+id/etCorreo"
         android:layout_marginStart="0dp"
         android:layout_marginTop="31dp"
         android:ems="11"
@@ -81,8 +58,8 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/etPassword"
         android:layout_alignEnd="@+id/etPassword"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="82dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="40dp"
         android:text="Iniciar Sesión" />
 
     <Button
@@ -101,11 +78,9 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
         android:layout_alignStart="@+id/etPassword"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="173dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="184dp"
         android:text="¿Olvidó su contraseña?" />
-
-
 
 
 </RelativeLayout>
