@@ -30,7 +30,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="19dp"
-        app:srcCompat="@drawable/iconoQR" />
+        app:srcCompat="@drawable/iconoqr" />
 
 
     <ImageView
@@ -39,11 +39,12 @@
         android:layout_height="78dp"
         android:layout_above="@+id/tvEscanear"
         android:layout_alignEnd="@+id/tvEscanear"
+        android:foregroundGravity="center"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="-140dp"
-        app:srcCompat="@drawable/iconoRelog" />
+        app:srcCompat="@drawable/iconorelog" />
 
     <TextView
         android:id="@+id/tvEscanear"
