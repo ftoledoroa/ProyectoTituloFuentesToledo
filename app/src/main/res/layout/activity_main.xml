@@ -37,7 +37,7 @@ android:orientation="vertical">
         android:layout_marginTop="25dp"
         android:ems="11"
         android:hint="Correo Electrónico"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textSize="16sp" />
 
     <EditText
