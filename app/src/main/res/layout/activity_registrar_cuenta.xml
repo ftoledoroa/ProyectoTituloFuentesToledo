@@ -255,7 +255,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="52dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/etAyuda"
@@ -264,10 +264,14 @@
                 android:layout_marginHorizontal="340dp"
                 android:text="Ayuda"
                 android:textColor="@color/purple_500">
-
+            
             </TextView>
-
-            <Button
+                android:text="Ayuda"
+                android:textColor="@color/purple_500"
+                android:layout_marginHorizontal="340dp">
+            </TextView>
+      
+      <Button
                 android:id="@+id/btRegistrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
