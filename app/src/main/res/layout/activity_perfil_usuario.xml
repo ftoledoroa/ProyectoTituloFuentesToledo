@@ -1,0 +1,329 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/white"
+android:orientation="vertical"
+tools:context=".Perfil_usuario">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="11"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="30dp"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="Bienvenido @user" />
+</LinearLayout>
+
+<TextView
+
+    android:id="@+id/tvModificarPerfil"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="11"
+    android:text="Modificando su perfil"
+    android:textAlignment="center"
+    android:textSize="25sp"
+    android:textStyle="bold" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="6"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="bottom|left"
+            android:paddingBottom="13dp"
+            android:text="Nombre"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="11"
+            android:gravity="bottom|left"
+            android:hint="Ingrese su primer nombre"
+            android:inputType="textPersonName"
+            android:paddingBottom="13dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="bottom|left"
+            android:paddingBottom="13dp"
+            android:text="Apellido"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etApellido"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="11"
+            android:gravity="bottom|left"
+            android:hint="Ingrese su apellido paterno"
+            android:inputType="textPersonName"
+            android:paddingBottom="13dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="bottom|left"
+            android:paddingBottom="13dp"
+            android:text="RUT"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etRut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:ems="11"
+            android:gravity="bottom|left"
+            android:hint="Ingrese su Rut"
+            android:inputType="textPersonName"
+            android:paddingBottom="13dp"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="4"
+            android:gravity="bottom|left"
+            android:paddingBottom="13dp"
+            android:text="Email"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="11"
+            android:gravity="bottom|left"
+            android:hint="Ingrese correo electrónico"
+            android:inputType="textEmailAddress"
+            android:paddingBottom="13dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="8"
+            android:gravity="bottom|left"
+            android:paddingBottom="13dp"
+            android:text="Contraseña"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:ems="11"
+            android:gravity="bottom|left"
+            android:hint="Ingrese una contraseña"
+            android:inputType="textPassword"
+            android:paddingBottom="13dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="3"
+            android:gravity="bottom|left"
+            android:paddingBottom="13dp"
+            android:text="Confirmar Contraseña"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etRePassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:ems="11"
+            android:gravity="bottom|left"
+            android:hint="Repita la contraseña"
+            android:inputType="textPassword"
+            android:paddingBottom="13dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/etMetodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccione un método de pago"></TextView>
+
+        <ImageView
+            android:id="@+id/ivMetodo1"
+            android:layout_width="171dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/etMetodo"
+            android:layout_alignLeft="@+id/etMetodo"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            app:srcCompat="@drawable/logo_webpay" />
+
+        <ImageView
+            android:id="@+id/ivMetodo2"
+            android:layout_width="171dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/etMetodo"
+            android:layout_alignLeft="@+id/etMetodo"
+            android:layout_marginLeft="217dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="0dp"
+            app:srcCompat="@drawable/paypal" />
+
+        <ImageView
+            android:id="@+id/ivMetodo4"
+            android:layout_width="171dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/etMetodo"
+            android:layout_alignLeft="@+id/etMetodo"
+            android:layout_marginLeft="216dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="0dp"
+            app:srcCompat="@drawable/logo_mercado_pago_lasertam" />
+
+        <ImageView
+            android:id="@+id/ivMetodo3"
+            android:layout_width="171dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/etMetodo"
+            android:layout_alignLeft="@+id/etMetodo"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="59dp"
+            android:layout_marginRight="0dp"
+            app:srcCompat="@drawable/visamcard" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="11">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/etAyuda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="340dp"
+            android:text="Ayuda"
+            android:textColor="@color/purple_500"></TextView>
+
+        <Button
+            android:id="@+id/btActualizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Actualizar Datos" />
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+</LinearLayout>
