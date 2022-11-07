@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">ProyectoTituloFuentesToledo</string>
+    <string name="btn_camara">camara</string>
+    <string name="iv_visor">visor</string>
+
     <string name="title_activity_bienvenida_pantalla">BienvenidaPantalla</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

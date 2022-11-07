@@ -2,9 +2,12 @@ package com.example.proyectotitulofuentestoledo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+
+import android.widget.ImageView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -19,20 +22,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyectotitulofuentestoledo.databinding.ActivityBienvenidaPantallaBinding;
 
 public class BienvenidaPantalla extends AppCompatActivity {
-
+    Button btnCamara;
+    ImageView visor;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityBienvenidaPantallaBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityBienvenidaPantallaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarBienvenidaPantalla.toolbar);
         binding.appBarBienvenidaPantalla.imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
