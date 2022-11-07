@@ -116,6 +116,7 @@ public class RegistrarCuenta extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Las contraseñas son incorrectas", Toast.LENGTH_LONG).show();
                     return;
                 }
+                //laskfjlkasjlkdjas
 
             }
         });
