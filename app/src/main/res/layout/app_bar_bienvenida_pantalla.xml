@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BienvenidaPantalla">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.ProyectoTituloFuentesToledo.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/purple_500"
+            app:popupTheme="@style/Theme.ProyectoTituloFuentesToledo.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_bienvenida_pantalla" />
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="89dp"
+        android:text="Bienvenido"
+        android:textSize="45sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="123dp"
+        android:layout_height="116dp"
+        android:layout_marginHorizontal="135dp"
+        android:layout_marginTop="200dp"
+        app:srcCompat="@drawable/iconoqr" />
+
+    <TextView
+        android:id="@+id/tvEscanear"
+        android:layout_width="229dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="340dp"
+        android:text="Escanear codigo QR"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="123dp"
+        android:layout_height="116dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="390dp"
+        app:srcCompat="@drawable/iconorelog" />
+
+    <TextView
+        android:id="@+id/tvReservar"
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="495dp"
+        android:text="Reservar estacionamiento"
+        android:textSize="24sp" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -117,7 +117,6 @@ public class RegistrarCuenta extends AppCompatActivity {
                     return;
                 }
                 //laskfjlkasjlkdjas
-
             }
         });
     }
