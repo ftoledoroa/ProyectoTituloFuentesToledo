@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"Bienvenido", Toast.LENGTH_LONG).show();
                                     //FirebaseUser user = mAuth.getCurrentUser();
                                     //updateUI(user);
-                                    Intent i = new Intent(MainActivity.this,PantallaBienvenida.class);
+                                    Intent i = new Intent(MainActivity.this,BienvenidaPantalla.class);
                                     startActivity(i);
 
                                 } else {
