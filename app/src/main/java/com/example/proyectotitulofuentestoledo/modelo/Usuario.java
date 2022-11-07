@@ -10,13 +10,14 @@ public class Usuario {
     public String correo;
     public String rut;
     public String password;
-    public Integer metodo_pago;
+    public Integer metodoPago;
     public Integer privilegios;
-    
-public Usuario() {
+
+    public Usuario() {
         //Default contructor required for calls to DataSnapshot.get
     }
-    public Usuario(String apellido, String nombre, String correo, String rut, String password, Integer metodo_pago, Integer privilegios) {
+
+    public Usuario(String apellido, String nombre, String correo, String rut, String password, Integer metodoPago, Integer privilegios) {
         this.apellido=apellido;
         this.nombre=nombre;
         this.correo=correo;
