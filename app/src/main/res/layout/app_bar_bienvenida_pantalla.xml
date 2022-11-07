@@ -69,5 +69,12 @@
         android:text="Reservar estacionamiento"
         android:textSize="24sp" />
 
+    <Button
+        android:id="@+id/btPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="600dp"
+        android:text="Boton perfil" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+
 import android.widget.ImageView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -42,8 +43,11 @@ public class BienvenidaPantalla extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -62,10 +66,12 @@ public class BienvenidaPantalla extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_bienvenida_pantalla);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }
