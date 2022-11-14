@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.widget.Button;
 
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -35,7 +37,7 @@ public class BienvenidaPantalla extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarBienvenidaPantalla.toolbar);
-        binding.appBarBienvenidaPantalla.imageView2.setOnClickListener(new View.OnClickListener() {
+        binding.appBarBienvenidaPantalla.btPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View view) {
@@ -57,6 +59,29 @@ public class BienvenidaPantalla extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_bienvenida_pantalla);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        RelativeLayout rlEscanear = findViewById(R.id.rlEscanearQR);
+        rlEscanear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //intent i = new Intent(BienvenidaPantalla.this,ActivityReservar.class);
+                //startActivity(i);
+                Toast.makeText(BienvenidaPantalla.this, "Acá ase añadirá la funcion de Camara", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        RelativeLayout rlReservar = findViewById(R.id.rlReservar);
+        rlReservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BienvenidaPantalla.this,ActivityReservar.class);
+                startActivity(i);
+
+            }
+        });
     }
 
     @Override
