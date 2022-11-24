@@ -59,9 +59,9 @@ public class AgregarEstacionamientosFragment extends DialogFragment {
 
     public void agregarEstacionamiento(String idEstacionamiento, String status, String fecha){
         Map<String, Object> map = new HashMap<>();
-        map.put("Numero", idEstacionamiento);
-        map.put("Estado del estacionamiento", status);
-        map.put("fecha y hora", fecha);
+        map.put("id", idEstacionamiento);
+        map.put("status", status);
+        map.put("fecha", fecha);
 
         mDB.collection("estacionamientos").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
