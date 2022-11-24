@@ -15,12 +15,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class ActivityReservar extends AppCompatActivity {
+
     FirebaseAuth mAuth;
     RecyclerView recyclerView;
     ReservaAdaptador rAdaptador;
     FirebaseFirestore mDB;
 
+
+
+    FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

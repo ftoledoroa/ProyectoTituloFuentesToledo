@@ -1,4 +1,6 @@
 package com.example.proyectotitulofuentestoledo.modelo;
+import com.google.firebase.firestore.IgnoreExtraProperties;
+@IgnoreExtraProperties
 
 public class Estacionamiento {
     private String id;
@@ -48,3 +50,4 @@ public class Estacionamiento {
         isChecked = checked;
     }
 }
+
