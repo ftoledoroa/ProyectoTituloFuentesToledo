@@ -97,8 +97,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
-        android:text="Boton perfil" />
+        android:text="Perfil" />
 
+    <Button
+        android:id="@+id/btAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="650dp"
+        android:text="AccesoAdmin" />
 
 
 </RelativeLayout>

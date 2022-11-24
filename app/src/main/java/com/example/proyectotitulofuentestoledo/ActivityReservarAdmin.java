@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class ActivityReservar extends AppCompatActivity {
+public class ActivityReservarAdmin extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     RecyclerView recyclerView;
@@ -26,7 +26,7 @@ public class ActivityReservar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservar);
+        setContentView(R.layout.activity_reservar_admin);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -41,9 +41,9 @@ public class ActivityReservar extends AppCompatActivity {
         rAdaptador.notifyDataSetChanged();
         recyclerView.setAdapter(rAdaptador);
 
-        Button btReservar = (Button) findViewById(R.id.btReservar);
+        Button btAgregar = (Button) findViewById(R.id.btAgregar);
 
-        btReservar.setOnClickListener(new View.OnClickListener() {
+        btAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AgregarEstacionamientosFragment mifragmento = new AgregarEstacionamientosFragment();

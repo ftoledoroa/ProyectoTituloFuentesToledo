@@ -1,5 +1,6 @@
 package com.example.proyectotitulofuentestoledo.adaptador;
 
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, ReservaAdaptador.ViewHolder> {
+
+public class ReservaAdaptadorAdmin extends FirestoreRecyclerAdapter<Estacionamiento, ReservaAdaptadorAdmin.ViewHolder> {
 
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     Activity activity;
@@ -32,7 +34,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
      *
      * @param options
      */
-    public ReservaAdaptador(@NonNull FirestoreRecyclerOptions<Estacionamiento> options, Activity activity) {
+    public ReservaAdaptadorAdmin(@NonNull FirestoreRecyclerOptions<Estacionamiento> options, Activity activity) {
         super(options);
         this.activity = activity;
     }
@@ -46,15 +48,15 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         //Log.d("prueba",estacionamiento.getFecha());
         holder.fecha.setText(estacionamiento.getFecha());
 
-        holder.botonSeleccionar.setOnClickListener(new View.OnClickListener() {
+        holder.botonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {selectEstacionamiento(id);
+            public void onClick(View view) {deleteEstacionamiento(id);
             }
         });
     }
 
-//para actualizar el estado revisar
-    private void selectEstacionamiento(String id) {
+    //para actualizar el estado revisar
+    private void deleteEstacionamiento(String id) {
         mDB.collection("estacionamientos").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -71,14 +73,14 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
 
     @NonNull
     @Override
-    public ReservaAdaptador.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReservaAdaptadorAdmin.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservar_adaptador, parent, false);
         return new ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView idEst, status, fecha;
-        ImageView botonSeleccionar;
+        ImageView botonEliminar;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -86,7 +88,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
             idEst= itemView.findViewById(R.id.tvId);
             status = itemView.findViewById(R.id.tvStatus);
             fecha = itemView.findViewById(R.id.fecha);
-            botonSeleccionar = itemView.findViewById(R.id.ivCheck);
+            botonEliminar = itemView.findViewById(R.id.btDelete);
         }
     }
 
