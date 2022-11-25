@@ -1,10 +1,5 @@
 package com.example.proyectotitulofuentestoledo;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"Bienvenido", Toast.LENGTH_LONG).show();
                                     //FirebaseUser user = mAuth.getCurrentUser();
                                     //updateUI(user);
-                                    Intent i = new Intent(MainActivity.this,BienvenidaPantalla.class);
+                                    Intent i = new Intent(MainActivity.this,PantallaBienvenida.class);
                                     startActivity(i);
 
                                 } else {
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-}
+    }
 
 // hola hola
 

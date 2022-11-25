@@ -4,24 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BienvenidaPantalla">
+    tools:context=".PantallaBienvenida">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.ProyectoTituloFuentesToledo.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
-            app:popupTheme="@style/Theme.ProyectoTituloFuentesToledo.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_bienvenida_pantalla" />
 
     <TextView
         android:id="@+id/tvTitulo"
@@ -39,7 +23,7 @@
         android:layout_alignTop="@+id/tvTitulo"
         android:layout_marginTop="70dp">
         <RelativeLayout
-            android:id="@+id/rlEscanearQR"
+            android:id="@+id/rlEscanear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true">
@@ -68,7 +52,7 @@
         android:layout_alignTop="@+id/tvTitulo"
         android:layout_marginTop="270dp">
         <RelativeLayout
-            android:id="@+id/rlReservar"
+            android:id="@+id/rlReserva"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
@@ -93,18 +77,16 @@
 
 
     <Button
-        android:id="@+id/btPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
         android:text="Perfil" />
 
     <Button
-        android:id="@+id/btAdmin"
+        android:id="@+id/btAdministrador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="650dp"
         android:text="AccesoAdmin" />
-
 
 </RelativeLayout>

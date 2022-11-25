@@ -3,27 +3,25 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 @IgnoreExtraProperties
 
 public class Estacionamiento {
-    private String id;
+    private String numero;
     private String status;
-    private String fecha;
     private Boolean isChecked;
 
     public Estacionamiento() {
     }
 
-    public Estacionamiento(String id, String status, String fecha, Boolean isChecked) {
-        this.id = id;
+    public Estacionamiento(String numero, String status, Boolean isChecked) {
+        this.numero = numero;
         this.status = status;
-        this.fecha = fecha;
         this.isChecked = isChecked;
     }
 
-    public String getId() {
-        return id;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getStatus() {
@@ -32,14 +30,6 @@ public class Estacionamiento {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
     }
 
     public Boolean getChecked() {
