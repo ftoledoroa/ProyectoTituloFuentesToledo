@@ -67,6 +67,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Estacionamiento estacionamiento) {
         DocumentSnapshot dSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
         final String id = dSnapshot.getId();
+
         String idEstacionamiento = id;
         calendar = Calendar.getInstance();
         holder.numero.setText(estacionamiento.getNumero());
@@ -82,7 +83,6 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     private void selectEstacionamiento(String id, String idEstacionamiento) {
         dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         horaReserva = dateFormat.format(calendar.getTime());
-
         mDB.collection("estacionamientos").document(id).update("status", "No Disponible").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -102,7 +102,6 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
                                 Log.w(String.valueOf(ReservaAdaptador.this), "Error adding document", e);
                             }
                         });
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -119,6 +118,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservar_adaptador, parent, false);
         return new ViewHolder(view);
     }
+
 
 
     /*public void onCheckboxClicked(View view) {
@@ -145,7 +145,6 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
 // se necesita al activar el checkbox crear un nuevo registro en la BD con la hora  y que el estado del estacionamiento cambie a no disponible.
     // ademas se necesita asociar al usuario con el estacionamiento reservado.
 //para actualizar el estado revisar para seleccionar el estado
-
 
 
 }
