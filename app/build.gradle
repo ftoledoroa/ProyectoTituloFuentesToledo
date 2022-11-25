@@ -56,6 +56,9 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
 
     implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
+    // lectura codifo QR
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+    implementation 'com.google.zxing:core:3.3.0'
 
 }
 
