@@ -17,6 +17,20 @@
         android:theme="@style/Theme.ProyectoTituloFuentesToledo"
         tools:targetApi="31">
         <activity
+            android:name=".PantallaBienvenida"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ActivityReservarAdmin"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".splash"
             android:exported="true"
             android:theme="@style/Theme.ProyectoTituloFuentesToledo.NoActionBar">
@@ -52,15 +66,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
 
-        </activity>
-        <activity
-            android:name=".BienvenidaPantalla"
-            android:exported="false"
-            android:label="@string/title_activity_bienvenida_pantalla"
-            android:theme="@style/Theme.ProyectoTituloFuentesToledo.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".Perfil_usuario"

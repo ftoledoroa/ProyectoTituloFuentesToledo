@@ -27,7 +27,7 @@ tools:context=".AgregarEstacionamientosFragment">
 
 
     <EditText
-        android:id="@+id/idEstacionamiento"
+        android:id="@+id/etNumero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="NumeroEstacionamiento">
@@ -38,13 +38,6 @@ tools:context=".AgregarEstacionamientosFragment">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Estado">
-
-    </EditText>
-    <EditText
-        android:id="@+id/fecha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="fecha y hora">
 
     </EditText>
 

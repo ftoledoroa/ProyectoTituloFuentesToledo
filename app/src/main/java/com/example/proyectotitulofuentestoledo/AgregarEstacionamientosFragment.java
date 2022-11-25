@@ -34,9 +34,9 @@ public class AgregarEstacionamientosFragment extends DialogFragment {
 
         mDB = FirebaseFirestore.getInstance();
 
-        EditText numero = (EditText) v.findViewById(R.id.idEstacionamiento);
+        EditText numero = (EditText) v.findViewById(R.id.etNumero);
         EditText status = (EditText) v.findViewById(R.id.etEstado);
-        EditText fecha = (EditText) v.findViewById(R.id.fecha);
+        //EditText fecha = (EditText) v.findViewById(R.id.fecha);
         Button agregar = (Button) v.findViewById(R.id.btAgregar);
 
         agregar.setOnClickListener(new View.OnClickListener() {
@@ -44,12 +44,12 @@ public class AgregarEstacionamientosFragment extends DialogFragment {
             public void onClick(View view) {
                 String numeroE = numero.getText().toString();
                 String statusE = status.getText().toString();
-                String fechaG = fecha.getText().toString();
+                //String fechaG = fecha.getText().toString();
 
-                if(numeroE.isEmpty() || statusE.isEmpty() || fechaG.isEmpty()){
+                if(numeroE.isEmpty() || statusE.isEmpty()){
                     Toast.makeText(getContext(), "Por favor, ingresa información del estacionamiento.", Toast.LENGTH_SHORT).show();
                 }else{
-                    agregarEstacionamiento(numeroE, statusE, fechaG);
+                    agregarEstacionamiento(numeroE, statusE);
                 }
             }
         });
@@ -57,11 +57,11 @@ public class AgregarEstacionamientosFragment extends DialogFragment {
         return v;
     }
 
-    public void agregarEstacionamiento(String idEstacionamiento, String status, String fecha){
+    public void agregarEstacionamiento(String numero, String status){
         Map<String, Object> map = new HashMap<>();
-        map.put("id", idEstacionamiento);
+        map.put("numero", numero);
         map.put("status", status);
-        map.put("fecha", fecha);
+        //.put("fecha", fecha);
 
         mDB.collection("estacionamientos").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override

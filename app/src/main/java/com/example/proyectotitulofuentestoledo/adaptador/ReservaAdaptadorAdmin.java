@@ -43,12 +43,13 @@ public class ReservaAdaptadorAdmin extends FirestoreRecyclerAdapter<Estacionamie
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Estacionamiento estacionamiento) {
         DocumentSnapshot dSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
         final String id = dSnapshot.getId();
-        holder.idEst.setText(estacionamiento.getId());
+        //holder.idEst.setText(estacionamiento.getId());
+        holder.numero.setText(estacionamiento.getNumero());
         holder.status.setText(estacionamiento.getStatus());
         //Log.d("prueba",estacionamiento.getFecha());
-        holder.fecha.setText(estacionamiento.getFecha());
+        //holder.fecha.setText(estacionamiento.getFecha());
 
-        holder.botonEliminar.setOnClickListener(new View.OnClickListener() {
+        holder.btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {deleteEstacionamiento(id);
             }
@@ -74,21 +75,20 @@ public class ReservaAdaptadorAdmin extends FirestoreRecyclerAdapter<Estacionamie
     @NonNull
     @Override
     public ReservaAdaptadorAdmin.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservar_adaptador, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservar_adaptador_admin, parent, false);
         return new ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView idEst, status, fecha;
-        ImageView botonEliminar;
+        TextView numero, status;
+        ImageView btDelete;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            idEst= itemView.findViewById(R.id.tvId);
+            numero= itemView.findViewById(R.id.tvNumero);
             status = itemView.findViewById(R.id.tvStatus);
-            fecha = itemView.findViewById(R.id.fecha);
-            botonEliminar = itemView.findViewById(R.id.btDelete);
+            btDelete = itemView.findViewById(R.id.btDelete);
         }
     }
 

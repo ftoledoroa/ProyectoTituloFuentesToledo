@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectotitulofuentestoledo.adaptador.ReservaAdaptador;
+import com.example.proyectotitulofuentestoledo.adaptador.ReservaAdaptadorAdmin;
 import com.example.proyectotitulofuentestoledo.modelo.Estacionamiento;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,7 +19,7 @@ public class ActivityReservarAdmin extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     RecyclerView recyclerView;
-    ReservaAdaptador rAdaptador;
+    ReservaAdaptadorAdmin rAdaptador;
     FirebaseFirestore mDB;
 
 
@@ -37,7 +37,7 @@ public class ActivityReservarAdmin extends AppCompatActivity {
 
         FirestoreRecyclerOptions<Estacionamiento> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Estacionamiento>().setQuery(query, Estacionamiento.class).build();
 
-        rAdaptador = new ReservaAdaptador(firestoreRecyclerOptions, this);
+        rAdaptador = new ReservaAdaptadorAdmin(firestoreRecyclerOptions, this);
         rAdaptador.notifyDataSetChanged();
         recyclerView.setAdapter(rAdaptador);
 

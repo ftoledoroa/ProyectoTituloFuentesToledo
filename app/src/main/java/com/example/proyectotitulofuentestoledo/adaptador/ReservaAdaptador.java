@@ -24,7 +24,19 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
 
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     Activity activity;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView numero, status, fecha;
+        ImageView selectEstacionamiento;
 
+        public ViewHolder(@NonNull View itemView){
+            super(itemView);
+
+            numero= itemView.findViewById(R.id.tvNumero);
+            status = itemView.findViewById(R.id.tvStatus);
+            //fecha = itemView.findViewById(R.id.fecha);
+            selectEstacionamiento = itemView.findViewById(R.id.ivCheck);
+        }
+    }
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -41,19 +53,44 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Estacionamiento estacionamiento) {
         DocumentSnapshot dSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
         final String id = dSnapshot.getId();
-        holder.idEst.setText(estacionamiento.getId());
+        holder.numero.setText(estacionamiento.getNumero());
         holder.status.setText(estacionamiento.getStatus());
         //Log.d("prueba",estacionamiento.getFecha());
-        holder.fecha.setText(estacionamiento.getFecha());
+        //holder.fecha.setText(estacionamiento.getFecha());
 
-        holder.botonSeleccionar.setOnClickListener(new View.OnClickListener() {
+
+        holder.selectEstacionamiento.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {selectEstacionamiento(id);
-            }
+            public void onClick(View view) {selectEstacionamiento(id);}
         });
     }
 
-//para actualizar el estado revisar
+    /*public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        // Check which checkbox was clicked
+
+        switch(view.getId()) {
+            case R.id.:
+                if (checked)
+                // Put some meat on the sandwich
+            else
+                // Remove the meat
+                break;
+            case R.id.checkbox_cheese:
+                if (checked)
+                // Cheese me
+            else
+                // I'm lactose intolerant
+                break;
+            // TODO: Veggie sandwich
+        }
+    }*/
+// se necesita al activar el checkbox crear un nuevo registro en la BD con la hora  y que el estado del estacionamiento cambie a no disponible.
+    // ademas se necesita asociar al usuario con el estacionamiento reservado.
+//para actualizar el estado revisar para seleccionar el estado
+
+
     private void selectEstacionamiento(String id) {
         mDB.collection("estacionamientos").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -76,18 +113,9 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         return new ViewHolder(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView idEst, status, fecha;
-        ImageView botonSeleccionar;
 
-        public ViewHolder(@NonNull View itemView){
-            super(itemView);
 
-            idEst= itemView.findViewById(R.id.tvId);
-            status = itemView.findViewById(R.id.tvStatus);
-            fecha = itemView.findViewById(R.id.fecha);
-            botonSeleccionar = itemView.findViewById(R.id.ivCheck);
-        }
-    }
+
+
 
 }

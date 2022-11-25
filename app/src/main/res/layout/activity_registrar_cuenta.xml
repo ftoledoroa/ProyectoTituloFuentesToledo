@@ -12,7 +12,6 @@
 
     <TextView
 
-        android:id="@+id/tvCreandoCuenta"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="12"
@@ -228,7 +227,6 @@
                 android:text="Seleccione un método de pago"></TextView>
 
             <ImageView
-                android:id="@+id/ivMetodo1"
                 android:layout_width="171dp"
                 android:layout_height="41dp"
                 android:layout_below="@+id/etMetodo"
@@ -238,7 +236,6 @@
                 app:srcCompat="@drawable/logo_webpay" />
 
             <ImageView
-                android:id="@+id/ivMetodo2"
                 android:layout_width="171dp"
                 android:layout_height="41dp"
                 android:layout_below="@+id/etMetodo"
@@ -249,7 +246,6 @@
                 app:srcCompat="@drawable/paypal" />
 
             <ImageView
-                android:id="@+id/ivMetodo4"
                 android:layout_width="171dp"
                 android:layout_height="41dp"
                 android:layout_below="@+id/etMetodo"
@@ -260,7 +256,6 @@
                 app:srcCompat="@drawable/logo_mercado_pago_lasertam" />
 
             <ImageView
-                android:id="@+id/ivMetodo3"
                 android:layout_width="171dp"
                 android:layout_height="41dp"
                 android:layout_below="@+id/etMetodo"
@@ -288,7 +283,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/etAyuda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="340dp"
