@@ -1,8 +1,6 @@
 package com.example.proyectotitulofuentestoledo;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,8 +26,6 @@ public class ActivityReservar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservar);
         mAuth = FirebaseAuth.getInstance();
-
-
         mDB = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.reciclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,7 +37,7 @@ public class ActivityReservar extends AppCompatActivity {
         rAdaptador.notifyDataSetChanged();
         recyclerView.setAdapter(rAdaptador);
 
-        Button btReservar = (Button) findViewById(R.id.btReservar);
+        /*Button btReservar = (Button) findViewById(R.id.btReservar);
 
         btReservar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +45,7 @@ public class ActivityReservar extends AppCompatActivity {
                 AgregarEstacionamientosFragment mifragmento = new AgregarEstacionamientosFragment();
                 mifragmento.show(getSupportFragmentManager(), "Agregar un Estacionamiento");
             }
-        });
+        });*/
 
     }
 
