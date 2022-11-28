@@ -44,6 +44,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
 
+
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
         rlEscanear.setOnClickListener(new View.OnClickListener() {
             @Override
