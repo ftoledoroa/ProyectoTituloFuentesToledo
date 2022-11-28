@@ -2,28 +2,17 @@ package com.example.proyectotitulofuentestoledo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyectotitulofuentestoledo.modelo.Boleta;
-import com.example.proyectotitulofuentestoledo.modelo.RegistroReserva;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 public class PantallaBienvenida extends AppCompatActivity {
 
@@ -83,7 +72,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                 startActivity(i);
             }});
 
-        Button btCheckIn = findViewById(R.id.btCheckIn);
+        /*Button btCheckIn = findViewById(R.id.btCheckIn);
         btCheckIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +90,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                             for(int i=0; i< lista.size(); i++){
                                 RegistroReserva r = lista.get(i).toObject(RegistroReserva.class);
                                 assert r != null;
-                                horaReserva = r.getHoraReserva();
+                                horaReserva = r.getHoraReserva(); //cambiar para hacer funcionar
                         }
                     }
                 });
@@ -113,20 +102,18 @@ public class PantallaBienvenida extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Log.d(String.valueOf(PantallaBienvenida.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                                Toast.makeText(PantallaBienvenida.this, "Nuevo Usuario Regirstrado", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PantallaBienvenida.this, "Nuevo Registro añadido", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.w(String.valueOf(PantallaBienvenida.this), "Error adding document", e);
-                                Toast.makeText(PantallaBienvenida.this, "Error al añadir usuario", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PantallaBienvenida.this, "Error al añadir registro", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-
-
-            }});
+            }});*/
 
 
     }
