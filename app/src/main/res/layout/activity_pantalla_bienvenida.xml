@@ -89,4 +89,14 @@
         android:layout_marginTop="650dp"
         android:text="AccesoAdmin" />
 
+    <Button
+        android:id="@+id/btCheckIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btAdministrador"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/btAdministrador"
+        android:text="CheckIn/Checkout" />
+
 </RelativeLayout>

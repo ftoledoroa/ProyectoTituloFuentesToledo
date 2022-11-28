@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PantallaBienvenida extends AppCompatActivity {
 
     Button rlEscanear;
+    Button btCheckIn;
 
 
     @Override
@@ -56,6 +58,15 @@ public class PantallaBienvenida extends AppCompatActivity {
                 Intent i = new Intent(PantallaBienvenida.this, ActivityReservarAdmin.class);
                 startActivity(i);
             }});
+
+        Button btCheckIn = findViewById(R.id.btCheckIn);
+        btCheckIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PantallaBienvenida.this, "Aca se probara el chekin y checkout", Toast.LENGTH_SHORT).show();
+            }});
+
+
     }
 
 
