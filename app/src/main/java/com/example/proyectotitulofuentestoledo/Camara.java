@@ -1,6 +1,7 @@
 package com.example.proyectotitulofuentestoledo;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -15,10 +16,18 @@ public class Camara extends AppCompatActivity {
     Button rlEscanear;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_camara);
+
+        new  IntentIntegrator(this).initiateScan();
+
+    }
+
+        @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        new  IntentIntegrator(this).initiateScan();
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 

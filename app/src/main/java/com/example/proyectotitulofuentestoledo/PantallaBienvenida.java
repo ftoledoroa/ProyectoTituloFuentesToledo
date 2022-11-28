@@ -19,6 +19,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_bienvenida);
 
 
+
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
         rlEscanear.setOnClickListener(new View.OnClickListener() {
             @Override
