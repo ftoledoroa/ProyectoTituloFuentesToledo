@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Camara extends AppCompatActivity {
 
+    new IntentIntegrator(this).initiateScan();
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
-
-
-
-
-
+        String datos = result.getContents();
+        rlEscanear.setText(datos);
+    }
 
 
 }

@@ -23,10 +23,6 @@ public class PantallaBienvenida extends AppCompatActivity {
 
         //
 
-
-
-
-
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
         rlReservar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +51,4 @@ public class PantallaBienvenida extends AppCompatActivity {
                 startActivity(i);
             }});
     }
-
-    /*
 }
