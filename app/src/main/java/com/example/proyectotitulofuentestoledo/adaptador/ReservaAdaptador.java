@@ -34,8 +34,6 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String horaReserva;
-    private String idEstacionamiento;
-    String userId = mAuth.getCurrentUser().getUid();
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView numero, status, fecha;
@@ -82,6 +80,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     private void selectEstacionamiento(String id, String idEstacionamiento) {
         dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         horaReserva = dateFormat.format(calendar.getTime());
+        String userId = mAuth.getCurrentUser().getUid();
 
         mDB.collection("estacionamientos").document(id).update("status", "No Disponible").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
