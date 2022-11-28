@@ -101,7 +101,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                             for(int i=0; i< lista.size(); i++){
                                 RegistroReserva r = lista.get(i).toObject(RegistroReserva.class);
                                 assert r != null;
-                                horaReserva = r.getHoraReserva();
+                                horaReserva = r.getHoraReserva(); //cambiar
                         }
                     }
                 });
@@ -123,8 +123,6 @@ public class PantallaBienvenida extends AppCompatActivity {
                                 Toast.makeText(PantallaBienvenida.this, "Error al añadir usuario", Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
 
             }});
 
