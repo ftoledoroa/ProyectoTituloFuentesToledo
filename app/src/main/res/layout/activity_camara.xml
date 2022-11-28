@@ -7,17 +7,4 @@
     android:orientation="vertical"
     tools:context=".Camara">
 
-    <ImageView
-        android:id="@+id/iv_visor"
-        android:layout_width="match_parent"
-        android:layout_height="686dp"
-        android:contentDescription="@string/app_name"
-         />
-
-    <Button
-        android:id="@+id/btnCamara"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_camara" />
-
 </LinearLayout>

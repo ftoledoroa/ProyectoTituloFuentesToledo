@@ -37,16 +37,6 @@ public class ActivityReservar extends AppCompatActivity {
         rAdaptador.notifyDataSetChanged();
         recyclerView.setAdapter(rAdaptador);
 
-        /*Button btReservar = (Button) findViewById(R.id.btReservar);
-
-        btReservar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AgregarEstacionamientosFragment mifragmento = new AgregarEstacionamientosFragment();
-                mifragmento.show(getSupportFragmentManager(), "Agregar un Estacionamiento");
-            }
-        });*/
-
     }
 
     @Override
