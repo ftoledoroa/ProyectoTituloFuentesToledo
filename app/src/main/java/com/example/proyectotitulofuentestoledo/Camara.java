@@ -83,7 +83,7 @@ public class Camara extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(String.valueOf(Camara.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                            Toast.makeText(Camara.this, "Nuevo Registro añadido", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Camara.this, "Bienvenido al Estacionamiento", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
