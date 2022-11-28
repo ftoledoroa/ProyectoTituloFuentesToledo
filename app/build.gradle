@@ -27,6 +27,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -59,6 +60,7 @@ dependencies {
     // lectura codifo QR
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
     implementation 'com.google.zxing:core:3.3.0'
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$klotin_version"
 
 
 }
