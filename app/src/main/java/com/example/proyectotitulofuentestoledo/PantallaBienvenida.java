@@ -20,8 +20,14 @@ public class PantallaBienvenida extends AppCompatActivity {
 
 
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
+        rlEscanear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PantallaBienvenida.this,Camara.class);
+                startActivity(i);
 
-        //
+            }
+        });
 
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
         rlReservar.setOnClickListener(new View.OnClickListener() {
@@ -51,4 +57,6 @@ public class PantallaBienvenida extends AppCompatActivity {
                 startActivity(i);
             }});
     }
+
+
 }

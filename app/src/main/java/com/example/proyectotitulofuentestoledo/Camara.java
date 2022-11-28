@@ -1,15 +1,24 @@
 package com.example.proyectotitulofuentestoledo;
 
+import android.content.Intent;
+import android.widget.Button;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 
 public class Camara extends AppCompatActivity {
 
-    new IntentIntegrator(this).initiateScan();
+    Button rlEscanear;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        new  IntentIntegrator(this).initiateScan();
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
