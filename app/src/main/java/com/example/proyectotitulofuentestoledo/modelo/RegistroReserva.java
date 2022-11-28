@@ -11,6 +11,10 @@ public class RegistroReserva {
         this.horaReserva = horaReserva;
     }
 
+    public RegistroReserva(){
+
+    }
+
     public String getUserId() {
         return userId;
     }
