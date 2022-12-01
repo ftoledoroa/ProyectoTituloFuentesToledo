@@ -1,5 +1,6 @@
 package com.example.proyectotitulofuentestoledo;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,8 +35,10 @@ public class Camara extends AppCompatActivity {
     private String horaIngreso;
     private String horaSalida;
     private String horaReserva;
+    public String idRegistro;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    Dialog mDialog;
 
 
 
@@ -43,8 +46,6 @@ public class Camara extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camara);
-
-
         new IntentIntegrator(this).initiateScan();
 
 
@@ -60,13 +61,21 @@ public class Camara extends AppCompatActivity {
 
         String captura = resultado.getText().toString();
 
+
         if(captura.equals("CheckIn")){
             dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             horaIngreso = dateFormat.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
             Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, horaSalida);
+            /* if compararIdquetengo con todos los id de la bdd
+            extraigo dato de horareserva
+            else
+            no encontre el id que me paso
+            todo lo anterior en un for
+            que va a iterar sobre el firebase
+             */
             mDB.collection("registro_reserva").whereEqualTo("userId",
-                    userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() { //para consultar una información especifica y acer un mach
+                    userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     List<DocumentSnapshot> lista = queryDocumentSnapshots.getDocuments();
@@ -82,8 +91,9 @@ public class Camara extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Log.d(String.valueOf(Camara.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                            Toast.makeText(Camara.this, "Bienvenido al Estacionamiento", Toast.LENGTH_SHORT).show();
+                            //Log.d(Camara.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            idRegistro = documentReference.getId();
+                            Toast.makeText(Camara.this, idRegistro, Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -93,25 +103,46 @@ public class Camara extends AppCompatActivity {
                             Toast.makeText(Camara.this, "Error al añadir registro", Toast.LENGTH_SHORT).show();
                         }
                     });
+
             Intent i = new Intent(Camara.this, PantallaBienvenida.class);
             startActivity(i);
         }
-        /*if(captura.equals("CheckOut")){
+        if(captura.equals("CheckOut")){
             dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            horaIngreso = dateFormat.format(calendar.getTime());
+            horaSalida = dateFormat.format(calendar.getTime());
+            String userId = mAuth.getCurrentUser().getUid();
+            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, horaSalida);
 
-            mDB.collection("registro_uso").document(id).update("status", "No Disponible").addOnSuccessListener(new OnSuccessListener<Void>() {
+            Toast.makeText(Camara.this, idRegistro, Toast.LENGTH_SHORT).show();
+
+            /*mDB.collection("registro_uso").document(idRegistro).update("horaSalida", horaSalida).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    Toast.makeText(activity, "Reservado Correctamente!, Te esperamos en el local.", Toast.LENGTH_SHORT).show();
-        }*/
+
+                    /*mDialog = new Dialog(Camara.this);
+                    Log.d("CHECKOUT", "success");
+                    mDialog.setContentView(R.layout.popup_checkout);
+                    Toast.makeText(Camara.this, "pOBANDO", Toast.LENGTH_SHORT).show();*/
 
 
-    }
+
+
+        }
+        //between entre los tiempos
 
 
 
-}
+
+
+
+        ;
+
+
+    }}
+
+
+
+
 
     /*Button btnCamara;
     ImageView visor;
