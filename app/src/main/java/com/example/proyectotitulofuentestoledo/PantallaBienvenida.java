@@ -16,16 +16,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectotitulofuentestoledo.modelo.Boleta;
+import com.example.proyectotitulofuentestoledo.modelo.RegistroReserva;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class PantallaBienvenida extends AppCompatActivity {
     Button btCheckIn;
@@ -66,7 +70,6 @@ public class PantallaBienvenida extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(PantallaBienvenida.this,ActivityReservar.class);
                 startActivity(i);
-
             }
         });
 
@@ -76,10 +79,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                 Intent i = new Intent(PantallaBienvenida.this, ActivityReservarAdmin.class);
                 startActivity(i);
             }});
-
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -91,8 +91,6 @@ public class PantallaBienvenida extends AppCompatActivity {
         String datos = result.getContents();
         tvResultadoCamara.setText(datos);
         String captura = tvResultadoCamara.getText().toString();
-
-
 
         if(captura.equals("CheckIn")){
             dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -108,18 +106,24 @@ public class PantallaBienvenida extends AppCompatActivity {
             todo lo anterior en un for
             que va a iterar sobre el firebase
 
+            */
             mDB.collection("registro_reserva").whereEqualTo("userId",
                     userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     List<DocumentSnapshot> lista = queryDocumentSnapshots.getDocuments();
                     for(int i=0; i< lista.size(); i++){
-                        RegistroReserva r = lista.get(i).toObject(RegistroReserva.class);
-                        assert r != null;
-                        horaReserva = r.getHoraReserva(); //cambiar para hacer funcionar
+                        RegistroReserva registro = lista.get(i).toObject(RegistroReserva.class);
+                        assert registro != null;
+                        horaReserva = registro.getHoraReserva();
+                        Log.w("REGISTRO RESERVA","---->"+ horaReserva);//cambiar para hacer funcionar
                     }
                 }
-            });*/
+            });
+
+
+
+            //CREAR NUEVO REGISTRO DE USO EN LA BASE DE DATOS
             mDB.collection("registro_uso")
                     .add(boleta)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -148,7 +152,7 @@ public class PantallaBienvenida extends AppCompatActivity {
             horaSalida = dateFormat.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
             Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
-            String idTemporal = cargarIdRegistro();
+            String idTemporal = cargarIdRegistro(); //cargar id registro
 
             //Log.d("PRUEBA","--->" + idBoleta);
 
