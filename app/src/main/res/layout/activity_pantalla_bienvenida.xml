@@ -76,11 +76,12 @@
     </RelativeLayout>
 
 
-    <Button
+    <TextView
+        android:id="@+id/tvResultadoCamara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
-        android:text="Perfil" />
+        android:text="resultado" />
 
     <Button
         android:id="@+id/btAdministrador"

@@ -1,31 +1,14 @@
 package com.example.proyectotitulofuentestoledo;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyectotitulofuentestoledo.modelo.Boleta;
-import com.example.proyectotitulofuentestoledo.modelo.RegistroReserva;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 
 public class Camara extends AppCompatActivity {
@@ -38,9 +21,8 @@ public class Camara extends AppCompatActivity {
     public String idRegistro;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
-    Dialog mDialog;
-
-
+    Dialog mDialog; }
+    /*
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +48,14 @@ public class Camara extends AppCompatActivity {
             dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             horaIngreso = dateFormat.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
-            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, horaSalida);
+            //Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
             /* if compararIdquetengo con todos los id de la bdd
             extraigo dato de horareserva
             else
             no encontre el id que me paso
             todo lo anterior en un for
             que va a iterar sobre el firebase
-             */
+
             mDB.collection("registro_reserva").whereEqualTo("userId",
                     userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
@@ -127,7 +109,7 @@ public class Camara extends AppCompatActivity {
 
 
 
-        }
+
         //between entre los tiempos
 
 
@@ -135,10 +117,10 @@ public class Camara extends AppCompatActivity {
 
 
 
-        ;
 
 
-    }}
+
+
 
 
 
