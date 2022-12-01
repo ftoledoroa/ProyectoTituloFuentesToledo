@@ -4,16 +4,26 @@ public class Boleta {
     private String userId;
     private String horaReseva;
     private String horaIngreso;
+    private String fecha;
     private String horaSalida;
 
-    public Boleta(String userId, String horaReseva, String horaIngreso, String horaSalida) {
+    public Boleta(String userId, String horaReseva, String horaIngreso,String fecha, String horaSalida) {
         this.userId = userId;
         this.horaReseva= horaReseva;
         this.horaIngreso = horaIngreso;
+        this.fecha = fecha;
         this.horaSalida = horaSalida;
     }
     public Boleta() {
         //Default contructor required for calls to DataSnapshot.get
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getUserId() {

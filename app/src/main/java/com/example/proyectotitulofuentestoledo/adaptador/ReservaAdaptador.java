@@ -34,10 +34,12 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String horaReserva;
+    public String reserva;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView numero, status, fecha;
         ImageView selectEstacionamiento;
+
 
 
         public ViewHolder(@NonNull View itemView){
@@ -47,6 +49,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
             status = itemView.findViewById(R.id.tvStatus);
             //fecha = itemView.findViewById(R.id.fecha);
             selectEstacionamiento = itemView.findViewById(R.id.ivCheck);
+
         }
     }
 
@@ -82,6 +85,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         horaReserva = dateFormat.format(calendar.getTime());
         String userId = mAuth.getCurrentUser().getUid();
 
+
         mDB.collection("estacionamientos").document(id).update("status", "No Disponible").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -92,7 +96,9 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Log.d(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
+                                reserva = documentReference.getId();
+                                Log.w(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -117,6 +123,12 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reservar_adaptador, parent, false);
         return new ViewHolder(view);
     }
+
+
+
+
+
+
 
 
     /*public void onCheckboxClicked(View view) {
