@@ -78,10 +78,11 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
             @Override
             public void onClick(View view) {selectEstacionamiento(id,idEstacionamiento);}
         });
+
     }
 
     private void selectEstacionamiento(String id, String idEstacionamiento) {
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        dateFormat = new SimpleDateFormat("HH:mm:ss");
         horaReserva = dateFormat.format(calendar.getTime());
         String userId = mAuth.getCurrentUser().getUid();
 
@@ -98,6 +99,21 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
                             public void onSuccess(DocumentReference documentReference) {
                                 reserva = documentReference.getId();
                                 Log.w(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
+                                /*Boleta boleta = new Boleta(userId, horaReserva, "" , "", "");
+                                mDB.collection("registro_uso")
+                                        .add(boleta)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.w(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(String.valueOf(ReservaAdaptador.this), "Error adding document", e);
+                                            }
+                                        });*/
 
                             }
                         })
