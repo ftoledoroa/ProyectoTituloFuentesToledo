@@ -1,11 +1,8 @@
 package com.example.proyectotitulofuentestoledo;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +37,6 @@ public class PantallaBienvenida extends AppCompatActivity {
     private String horaSalida;
     private String horaReserva;
     public String idRegistro;
-    Dialog mDialog;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
@@ -54,8 +50,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
         Button btAdmin = (Button) findViewById(R.id.btAdministrador);
-        mDialog = new Dialog(PantallaBienvenida.this);
-        cargarPreferencias();
+        cargarIdRegistro();
 
         rlEscanear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +127,8 @@ public class PantallaBienvenida extends AppCompatActivity {
                         public void onSuccess(DocumentReference documentReference) {
                             //Log.d(this, "DocumentSnapshot added with ID: " + documentReference.getId());
                             idRegistro = documentReference.getId();
-                            guardarPreferencias();
-                            Toast.makeText(PantallaBienvenida.this, idRegistro, Toast.LENGTH_SHORT).show();
+                            guardarIdRegistro();
+                            Toast.makeText(PantallaBienvenida.this, "CheckIn Correcto", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -153,7 +148,7 @@ public class PantallaBienvenida extends AppCompatActivity {
             horaSalida = dateFormat.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
             Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
-            String idTemporal = cargarPreferencias();
+            String idTemporal = cargarIdRegistro();
 
             //Log.d("PRUEBA","--->" + idBoleta);
 
@@ -163,16 +158,15 @@ public class PantallaBienvenida extends AppCompatActivity {
             mDB.collection("registro_uso").document(idTemporal).update("horaSalida", horaSalida).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
-                    mDialog.setContentView(R.layout.popup_checkout);
-                    mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Toast.makeText(PantallaBienvenida.this, "CheckOut Correcto", Toast.LENGTH_SHORT).show();
                 }
             });
-            Intent i = new Intent(PantallaBienvenida.this, PantallaBienvenida.class);
+            Intent i = new Intent(PantallaBienvenida.this, DetalleBoleta.class);
             startActivity(i);
         }
 
     }
-    private String cargarPreferencias() {
+    private String cargarIdRegistro() {
         SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
         String idTemporal = preferences.getString("idBoleta","no existe informacion");
         Log.w("IDBOLETA","--->"+ idTemporal);
@@ -180,7 +174,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         return idTemporal;
     }
 
-    private void guardarPreferencias() {
+    private void guardarIdRegistro() {
         SharedPreferences preferences = getSharedPreferences("temporal", Context.MODE_PRIVATE );
         String idBoleta =  idRegistro;
 

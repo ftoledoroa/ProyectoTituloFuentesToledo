@@ -31,11 +31,13 @@ public class ActivityReservar extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Query query = mDB.collection(("estacionamientos"));
 
+
         FirestoreRecyclerOptions<Estacionamiento> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<Estacionamiento>().setQuery(query, Estacionamiento.class).build();
 
         rAdaptador = new ReservaAdaptador(firestoreRecyclerOptions, this);
         rAdaptador.notifyDataSetChanged();
         recyclerView.setAdapter(rAdaptador);
+
 
     }
 
@@ -50,4 +52,5 @@ public class ActivityReservar extends AppCompatActivity {
         super.onStop();
         rAdaptador.stopListening();
     }
+
 }
