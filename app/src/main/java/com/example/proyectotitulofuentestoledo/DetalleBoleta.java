@@ -62,7 +62,7 @@ public class DetalleBoleta extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(DetalleBoleta.this, "Muchas Gracias, pago registrado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetalleBoleta.this, "Muchas Gracias, vuelva pronto", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(DetalleBoleta.this, PantallaBienvenida.class);
                 startActivity(i);
             }
@@ -80,11 +80,21 @@ public class DetalleBoleta extends AppCompatActivity {
                 horaIngreso = boleta.getHoraIngreso();
                 horaSalida = boleta.getHoraSalida();
                 horaReserva = boleta.getHoraReseva();
-                try {
-                    tiempoUso = CalcularTiempo(horaIngreso, horaSalida);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                Log.w("HORA RESERVA",""+ horaReserva);
+                if (horaReserva.equals("Sin Reserva")){
+                    try {
+                        tiempoUso = CalcularTiempo(horaIngreso, horaSalida);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        tiempoUso = CalcularTiempo(horaReserva, horaSalida);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
+
                 totalPago = String.valueOf(CalcularPrecio(tiempoUso));
 
                 //Asignando a los TextViews
@@ -101,11 +111,11 @@ public class DetalleBoleta extends AppCompatActivity {
     }
 
     //REALIZAR CALCULO DE TIEMPO
-    public Integer CalcularTiempo(String horaIngreso, String horaSalida) throws ParseException {
+    public Integer CalcularTiempo(String ingreso, String salida) throws ParseException {
         String pattern = "HH:mm:ss";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        Date hora1 = formatter.parse(horaIngreso);
-        Date hora2 = formatter.parse(horaSalida);
+        Date hora1 = formatter.parse(ingreso);
+        Date hora2 = formatter.parse(salida);
         assert hora2 != null;
         assert hora1 != null;
         long elapsedms = hora2.getTime() - hora1.getTime();

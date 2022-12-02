@@ -59,7 +59,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         calendar = Calendar.getInstance();
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
-        Button btAdmin = (Button) findViewById(R.id.btAdministrador);
+        TextView tvUltimaBoleta = findViewById(R.id.tvUltimaBoleta);
         //cargarIdRegistro();
         //cargarHoraReserva();
         TextView tvTitulo = findViewById(R.id.tvTitulo);
@@ -80,10 +80,10 @@ public class PantallaBienvenida extends AppCompatActivity {
             }
         });
 
-        btAdmin.setOnClickListener(new View.OnClickListener() {
+        tvUltimaBoleta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PantallaBienvenida.this, ActivityReservarAdmin.class);
+                Intent i = new Intent(PantallaBienvenida.this, DetalleBoleta.class);
                 startActivity(i);
             }});
     }
@@ -203,9 +203,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                 }
 
             });
-
         }
-
     }
 
     private String cargarIdRegistro() {
