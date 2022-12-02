@@ -93,7 +93,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         String datos = result.getContents();
         tvResultadoCamara.setText(datos);
         String captura = tvResultadoCamara.getText().toString();
-
+        //CAPTURAR EL CHECKIN
         if(captura.equals("CheckIn")){
             dateFormat = new SimpleDateFormat("HH:mm:ss");
             dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy");
@@ -120,7 +120,6 @@ public class PantallaBienvenida extends AppCompatActivity {
                     }
                 }
             });
-
 
             //CREAR NUEVO REGISTRO DE USO EN LA BASE DE DATOS
             mDB.collection("registro_uso")
@@ -168,9 +167,7 @@ public class PantallaBienvenida extends AppCompatActivity {
     private String cargarIdRegistro() {
         SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
         String idTemporal = preferences.getString("idBoleta","no existe informacion");
-        String horaTemporal = preferences.getString("Hora Reserva","no existe informacion");
         Log.w("IDBOLETA","--->"+ idTemporal);
-        Log.w("Hora Reserva","--->"+ horaTemporal);
 
 
         return idTemporal;

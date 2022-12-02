@@ -5,16 +5,17 @@ public class BoletaFinal {
     private String horaReseva;
     private String horaIngreso;
     private String horaSalida;
-    private String tiempoUso;
-    private String totalPago;
+    private String userId;
 
-    public BoletaFinal(String fecha, String horaReseva, String horaIngreso, String horaSalida, String tiempoUso, String totalPago) {
+
+    public BoletaFinal () {}
+
+    public BoletaFinal(String fecha, String horaReseva, String horaIngreso, String horaSalida, String userId) {
         this.fecha = fecha;
         this.horaReseva = horaReseva;
         this.horaIngreso = horaIngreso;
         this.horaSalida = horaSalida;
-        this.tiempoUso = tiempoUso;
-        this.totalPago = totalPago;
+        this.userId = userId;
     }
 
     public String getFecha() {
@@ -49,19 +50,11 @@ public class BoletaFinal {
         this.horaSalida = horaSalida;
     }
 
-    public String getTiempoUso() {
-        return tiempoUso;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setTiempoUso(String tiempoUso) {
-        this.tiempoUso = tiempoUso;
-    }
-
-    public String getTotalPago() {
-        return totalPago;
-    }
-
-    public void setTotalPago(String totalPago) {
-        this.totalPago = totalPago;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
