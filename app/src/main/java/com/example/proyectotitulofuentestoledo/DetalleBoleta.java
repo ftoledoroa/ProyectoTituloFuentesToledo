@@ -1,18 +1,19 @@
 package com.example.proyectotitulofuentestoledo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectotitulofuentestoledo.modelo.BoletaFinal;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,56 +39,68 @@ public class DetalleBoleta extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_boleta);
         Button btPagar = findViewById(R.id.btPagar);
         String idTemporal = cargarIdRegistro();
-
-        DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        document.toObject(BoletaFinal.class);
-                        Log.d("CORRECTO", "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d("RESULTADO", "NNO ENCONTRADO");
-                    }
-                } else {
-                    Log.d("RESULTADO", "FALLO ", task.getException());
-                }
-            }
-        });
-
         TextView tvFecha = findViewById(R.id.tvFecha);
-        BoletaFinal boletaFinal = new BoletaFinal();
+        TextView tvReserva = findViewById(R.id.tvReserva);
+        TextView tvIngreso = findViewById(R.id.tvIngreso);
+        TextView tvSalida = findViewById(R.id.tvSalida);
+        //BOTON DE PAGO
+        btPagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(DetalleBoleta.this, "Muchas Gracias, pago registrado", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(DetalleBoleta.this, PantallaBienvenida.class);
+                startActivity(i);
+            }});
 
 
-
-        //tvFecha.setText(BoletaFinal.getFecha());
-
-        Log.w("Clase","" + BoletaFinal.class);
-
-
-
-        /*DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        //CONSEGUIR DOCUMENTO PARA MOSTRAR
+        DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 BoletaFinal boleta = documentSnapshot.toObject(BoletaFinal.class);
-                String hora= boleta.getHoraIngreso();
+                //Asignando las variables
+                fecha = boleta.getFecha();
+                horaIngreso = boleta.getHoraIngreso();
+                horaSalida = boleta.getHoraSalida();
+                horaReserva = boleta.getHoraReseva();
+                //Asignando a los TextViews
+                tvFecha.setText(fecha);
+                tvReserva.setText(horaReserva);
+                tvIngreso.setText(horaIngreso);
+                tvSalida.setText(horaSalida);
 
-                Log.w("DETALLE BOLETA", "--->"+hora);
 
-            }});*/
 
+            }
+        });
+        //REALIZAR CALCULO A PAGAR
+        /*TextView totalapagar = (TextView) findViewById(R.id.tvPrecio);
+        totalapagar.setText(DetalleBoleta.funcionCalcularTotal("entrada", "salida"));
+
+        public static String funcionCalcularTotal(String horaIngreso, String horaSalida);{
+            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida, tiempoUso, totalPago);
+            String totalAPagar = "10000";
+
+
+            //extraigo la hora de entrada y salida
+            //Convierto ambos a un date
+            //hago un between entre ambos
+            //cargi en la variable totalAPagar el resultado de between
+
+            return totalAPagar;
+
+        }*/
 
     }
+
 
     private String cargarIdRegistro() {
         SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
@@ -104,28 +117,32 @@ public class DetalleBoleta extends AppCompatActivity {
         editor.putString("idBoleta",idBoleta);
         Log.w("IDBOLETA","--->"+ idBoleta);
         editor.commit();
-    }}
+    }
+}
 
 
+        /*DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        document.toObject(BoletaFinal.class);
+                        Log.d("CORRECTO", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("RESULTADO", "NNO ENCONTRADO");
+                    }
+                } else {
+                    Log.d("RESULTADO", "FALLO ", task.getException());
+                }
+            }
+        });*/
 
 
 /*
-        TextView totalapagar = (TextView) findViewById(R.id.tvPrecio);
-        totalapagar.setText(DetalleBoleta.funcionCalcularTotal("entrada", "salida"));
 
-        public static String funcionCalcularTotal(String horaIngreso, String horaSalida);{
-            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida, tiempoUso, totalPago);
-            String totalAPagar = "10000";
-
-
-            //extraigo la hora de entrada y salida
-            //Convierto ambos a un date
-            //hago un between entre ambos
-            //cargi en la variable totalAPagar el resultado de between
-
-            return totalAPagar;
-
-        }
 
         TextView totalapagar = (TextView) findViewById(R.id.tvPrecio);
         totalapagar.setText(funcionCalcularTotal("entrada", "salida"));
@@ -168,3 +185,4 @@ public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
         }
         }
         });*/
+
