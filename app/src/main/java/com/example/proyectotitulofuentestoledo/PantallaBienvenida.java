@@ -45,6 +45,7 @@ public class PantallaBienvenida extends AppCompatActivity {
     private String horaReserva;
     public String idRegistro;
     public String idReserva;
+    public String idEstacionamiento;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
@@ -97,7 +98,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         tvResultadoCamara.setText(datos);
         String captura = tvResultadoCamara.getText().toString();
         //CAPTURAR EL CHECKIN
-        if(captura.equals("CheckIn")){
+        if (captura.equals("CheckIn")) {
             dateFormat = new SimpleDateFormat("HH:mm:ss");
             dateFormatFecha = new SimpleDateFormat("dd-MM-yyyy");
             horaIngreso = dateFormat.format(calendar.getTime());
@@ -111,13 +112,15 @@ public class PantallaBienvenida extends AppCompatActivity {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     List<DocumentSnapshot> lista = queryDocumentSnapshots.getDocuments();
-                    for(int i=0; i< lista.size(); i++){
+                    for (int i = 0; i < lista.size(); i++) {
                         RegistroReserva registro = lista.get(i).toObject(RegistroReserva.class);
                         assert registro != null;
+                        idEstacionamiento = registro.getIdEstacionamiento();
+                        guardarIdEstacionamiento();
                         horaReserva = registro.getHoraReserva();
                         guardarHoraReserva();
                         String horaTemporal = cargarHoraReserva();
-                        Log.w("REGISTRO RESERVA","---->"+ horaTemporal);//preguntar como obtener la ultima hora
+                        Log.w("REGISTRO RESERVA", "---->" + horaTemporal);//preguntar como obtener la ultima hora
                         //preguntar por como hacer diferencia de horas en minutos
                     }
 
@@ -150,12 +153,13 @@ public class PantallaBienvenida extends AppCompatActivity {
 
         }
 
-        if(captura.equals("CheckOut")){
+        if (captura.equals("CheckOut")) {
             dateFormat = new SimpleDateFormat("HH:mm:ss");
             horaSalida = dateFormat.format(calendar.getTime());
             String idTemporal = cargarIdRegistro();
             tvResultadoCamara.setText("");
             String userId = mAuth.getCurrentUser().getUid();
+            String estacionamiento = cargarIdEstacionamiento();
 
             mDB.collection("registro_uso").document(idTemporal).update("horaSalida", horaSalida).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -164,7 +168,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                     horaReserva = "Sin Reserva";
                     guardarHoraReserva();
                     //IR A BD A CAMBIAR EL REGISTRO RESERVA DEL USUARIO A FALSE
-                    mDB.collection("registro_reserva").whereEqualTo("userId", userId).whereEqualTo("activo",true)
+                    mDB.collection("registro_reserva").whereEqualTo("userId", userId).whereEqualTo("activo", true)
                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -180,18 +184,26 @@ public class PantallaBienvenida extends AppCompatActivity {
                                                         }
                                                     });
                                         }
+                                        //ACTUALIZA EL ESTACIONAMIENTO A DISPONIBLE
+                                        mDB.collection("estacionamientos").document(estacionamiento).update("status", "Disponible")
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.w("CAMBIO ESTACIONAMIENTO", "A DISPONIBLE");
+                                                    }
+                                                });
                                     }
                                 }
                             });
-
+                    tvResultadoCamara.setText("");
+                    Intent i = new Intent(PantallaBienvenida.this, DetalleBoleta.class);
+                    startActivity(i);
                 }
-            });
-            Intent i = new Intent(PantallaBienvenida.this, DetalleBoleta.class);
-            startActivity(i);
-        }
-        onRestart();
 
+            });
+        }
     }
+
     private String cargarIdRegistro() {
         SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
         String idTemporal = preferences.getString("idBoleta","no existe informacion");
@@ -220,6 +232,20 @@ public class PantallaBienvenida extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("horaTemporal",horaTemporal);
         Log.w("guardarHoraReserva","--->"+ horaTemporal);
+        editor.commit();
+    }
+    private String cargarIdEstacionamiento() {
+        SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
+        String estacionamiento = preferences.getString("estacionamiento","No encontrado");
+        Log.w("cargarIdEstacionamiento","--->"+ estacionamiento);
+        return estacionamiento;
+    }
+    private void guardarIdEstacionamiento() {
+        SharedPreferences preferences = getSharedPreferences("temporal", Context.MODE_PRIVATE );
+        String estacionamiento =  idEstacionamiento;
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("estacionamiento",estacionamiento);
+        Log.w("guardarIdEstacionamiento","--->"+ estacionamiento);
         editor.commit();
     }
 
