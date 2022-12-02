@@ -65,7 +65,8 @@ public class DetalleBoleta extends AppCompatActivity {
                 Toast.makeText(DetalleBoleta.this, "Muchas Gracias, pago registrado", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(DetalleBoleta.this, PantallaBienvenida.class);
                 startActivity(i);
-            }});
+            }
+        });
 
 
         //CONSEGUIR DOCUMENTO PARA MOSTRAR
@@ -80,7 +81,7 @@ public class DetalleBoleta extends AppCompatActivity {
                 horaSalida = boleta.getHoraSalida();
                 horaReserva = boleta.getHoraReseva();
                 try {
-                    tiempoUso = CalcularTiempo(horaIngreso,horaSalida);
+                    tiempoUso = CalcularTiempo(horaIngreso, horaSalida);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -97,30 +98,12 @@ public class DetalleBoleta extends AppCompatActivity {
             }
         });
 
-
-        //CONSEGUIR DOCUMENTO PARA MOSTRAR
-        DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                BoletaFinal boleta = documentSnapshot.toObject(BoletaFinal.class);
-                //Asignando las variables
-                fecha = boleta.getFecha();
-                horaIngreso = boleta.getHoraIngreso();
-                horaSalida = boleta.getHoraSalida();
-                horaReserva = boleta.getHoraReseva();
-                //Asignando a los TextViews
-                tvFecha.setText(fecha);
-                tvReserva.setText(horaReserva);
-                tvIngreso.setText(horaIngreso);
-                tvSalida.setText(horaSalida);
-
     }
 
     //REALIZAR CALCULO DE TIEMPO
-    public Integer CalcularTiempo (String horaIngreso, String horaSalida) throws ParseException {
+    public Integer CalcularTiempo(String horaIngreso, String horaSalida) throws ParseException {
         String pattern = "HH:mm:ss";
-        SimpleDateFormat formatter=new SimpleDateFormat(pattern);
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date hora1 = formatter.parse(horaIngreso);
         Date hora2 = formatter.parse(horaSalida);
         assert hora2 != null;
@@ -128,49 +111,35 @@ public class DetalleBoleta extends AppCompatActivity {
         long elapsedms = hora2.getTime() - hora1.getTime();
         long diff = TimeUnit.MINUTES.convert(elapsedms, TimeUnit.MILLISECONDS);
         Integer tiempo = Integer.valueOf(String.valueOf(diff));
-        Log.w("prueba","" + tiempo);
+        Log.w("prueba", "" + tiempo);
         return tiempo;
     }
 
-    public Integer CalcularPrecio (Integer tiempoUso){
-        Integer precio = tiempoUso*18;
-        Log.w("prueba","" + precio);
+    public Integer CalcularPrecio(Integer tiempoUso) {
+        Integer precio = tiempoUso * 18;
+        Log.w("prueba", "" + precio);
         return precio;
     }
 
-        public static String funcionCalcularTotal(String horaIngreso, String horaSalida);{
-            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida, tiempoUso, totalPago);
-            String totalAPagar = "10000";
-
-
-
-        //extraigo la hora de entrada y salida
-        //Convierto ambos a un date
-        //hago un between entre ambos
-        //cargi en la variable totalAPagar el resultado de between
-
-
-        }*/
-
-
 
     private String cargarIdRegistro() {
-        SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
-        String idTemporal = preferences.getString("idBoleta","no existe informacion");
-        Log.w("ID_TEMPORALBOLETA","--->"+ idTemporal);
+        SharedPreferences preferences = getSharedPreferences("temporal", Context.MODE_PRIVATE);
+        String idTemporal = preferences.getString("idBoleta", "no existe informacion");
+        Log.w("ID_TEMPORALBOLETA", "--->" + idTemporal);
         return idTemporal;
     }
 
     private void guardarIdRegistro() {
-        SharedPreferences preferences = getSharedPreferences("temporal", Context.MODE_PRIVATE );
-        String idBoleta =  idRegistro;
+        SharedPreferences preferences = getSharedPreferences("temporal", Context.MODE_PRIVATE);
+        String idBoleta = idRegistro;
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("idBoleta",idBoleta);
-        Log.w("IDBOLETA","--->"+ idBoleta);
+        editor.putString("idBoleta", idBoleta);
+        Log.w("IDBOLETA", "--->" + idBoleta);
         editor.commit();
     }
 }
+
 
 
         /*DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);
