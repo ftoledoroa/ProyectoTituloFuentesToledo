@@ -4,7 +4,7 @@ public class BoletaFinal {
     private String fecha;
     private String horaReseva;
     private String horaIngreso;
-    private String horaSalida;
+    private static String horaSalida;
     private String tiempoUso;
     private String totalPago;
 
@@ -22,15 +22,22 @@ public class BoletaFinal {
 
     }
 
-    public String getFecha() {
-        return fecha;
+    public static String getHoraReserva() {
+
+        return getHoraReserva();
     }
+
+    public static String getFecha() {
+        return getFecha();
+    }
+
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     public String getHoraReseva() {
+
         return horaReseva;
     }
 
@@ -38,15 +45,15 @@ public class BoletaFinal {
         this.horaReseva = horaReseva;
     }
 
-    public String getHoraIngreso() {
-        return horaIngreso;
+    public static String getHoraIngreso() {
+        return getHoraIngreso();
     }
 
     public void setHoraIngreso(String horaIngreso) {
         this.horaIngreso = horaIngreso;
     }
 
-    public String getHoraSalida() {
+    public static String getHoraSalida() {
         return horaSalida;
     }
 
@@ -54,19 +61,30 @@ public class BoletaFinal {
         this.horaSalida = horaSalida;
     }
 
-    public String getTiempoUso() {
-        return tiempoUso;
+    public static String getTiempoUso() {
+        return getTiempoUso();
     }
 
     public void setTiempoUso(String tiempoUso) {
         this.tiempoUso = tiempoUso;
     }
 
-    public String getTotalPago() {
-        return totalPago;
+    public static String getTotalPago() {
+        return getTotalPago();
     }
 
     public void setTotalPago(String totalPago) {
         this.totalPago = totalPago;
+    }
+
+    @Override
+    public String toString() {
+        return "BoletaFinal: \n" +
+                "  id=" + fecha + "\n" +
+                "  horaReserva=" + horaReseva + "\n" +
+                "  horaIngreso=" + horaIngreso + "\n" +
+                "  horaSalida=" + horaSalida + "\n" +
+                "  tiempoUso=" + tiempoUso + "\n" +
+                "  totalPago=" + totalPago + "\n";
     }
 }

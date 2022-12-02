@@ -14,7 +14,7 @@ public class Boleta {
         this.fecha = fecha;
         this.horaSalida = horaSalida;
     }
-    public Boleta() {
+    public Boleta(String userId, String horaReserva, String horaIngreso, String fecha, String horaSalida, String tiempoUso, String totalPago) {
         //Default contructor required for calls to DataSnapshot.get
     }
 
