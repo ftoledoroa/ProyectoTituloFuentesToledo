@@ -104,7 +104,8 @@ public class PantallaBienvenida extends AppCompatActivity {
             tvResultadoCamara.setText("");
 
             mDB.collection("registro_reserva").whereEqualTo("userId",
-                    userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    userId).whereEqualTo("activo",
+                    true).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     List<DocumentSnapshot> lista = queryDocumentSnapshots.getDocuments();

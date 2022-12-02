@@ -17,12 +17,16 @@ import com.example.proyectotitulofuentestoledo.modelo.Estacionamiento;
 import com.example.proyectotitulofuentestoledo.modelo.RegistroReserva;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,12 +39,11 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
     private SimpleDateFormat dateFormat;
     private String horaReserva;
     public String reserva;
+    public String idReserva;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView numero, status, fecha;
         ImageView selectEstacionamiento;
-
-
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -63,7 +66,7 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         super(options);
         this.activity = activity;
     }
-
+//CREA LOS ELEMENTOS A MOSTRAR EN EL RECICLERVIEW
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Estacionamiento estacionamiento) {
         DocumentSnapshot dSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
@@ -80,56 +83,64 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
         });
 
     }
-
+//CREAR NUEVO REGISTRO DE RESERVA
     private void selectEstacionamiento(String id, String idEstacionamiento) {
         dateFormat = new SimpleDateFormat("HH:mm:ss");
         horaReserva = dateFormat.format(calendar.getTime());
         String userId = mAuth.getCurrentUser().getUid();
-
-
+        //ACA SE CAMBIA LA DISPONIBILIDAD DEL ESTACIONAMIENTO
         mDB.collection("estacionamientos").document(id).update("status", "No Disponible").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(activity, "Reservado Correctamente!, Te esperamos en el local.", Toast.LENGTH_SHORT).show();
-                RegistroReserva registroReserva = new RegistroReserva (userId, idEstacionamiento, horaReserva);
-                mDB.collection("registro_reserva")
-                        .add(registroReserva)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                reserva = documentReference.getId();
-                                Log.w(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                                /*Boleta boleta = new Boleta(userId, horaReserva, "" , "", "");
-                                mDB.collection("registro_uso")
-                                        .add(boleta)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.w(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w(String.valueOf(ReservaAdaptador.this), "Error adding document", e);
-                                            }
-                                        });*/
+                RegistroReserva registroReserva = new RegistroReserva(userId, idEstacionamiento, horaReserva, true);
 
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
+                //ESTA OPERACION CAMBIA EL ESTADO DE LAS RESERVAS ANTERIORES A FALSE
+                mDB.collection("registro_reserva").whereEqualTo("userId", userId)
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(String.valueOf(ReservaAdaptador.this), "Error adding document", e);
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String idReserva = document.getId();
+                                        //POR CADA DOCUMENTO ENCONTRADO ACTUALIZA EL ESTADO
+                                        mDB.collection("registro_reserva").document(idReserva).update("activo", false)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.w("DOCUMENTO ACTUALIZADO", "---->" + idReserva);
+                                                    }
+                                                });
+
+                                    }
+                                    //CREA NUEVO REGISTRO DE RESERVA
+                                    mDB.collection("registro_reserva").add(registroReserva).
+                                            addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    reserva = documentReference.getId();
+                                                    Log.w(String.valueOf(ReservaAdaptador.this), "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(String.valueOf(ReservaAdaptador.this), "Error adding document", e);
+                                                }
+                                            });
+                                }
                             }
-                        }); 
+                        });
+
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(activity, "Error.", Toast.LENGTH_SHORT).show();
-            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(activity, "Error.", Toast.LENGTH_SHORT).show();
+                    }
         });
+
     }
 
 
