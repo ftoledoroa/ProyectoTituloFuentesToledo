@@ -77,6 +77,8 @@ public class DetalleBoleta extends AppCompatActivity {
                 tvIngreso.setText(horaIngreso);
                 tvSalida.setText(horaSalida);
 
+
+
             }
         });
         //REALIZAR CALCULO A PAGAR
