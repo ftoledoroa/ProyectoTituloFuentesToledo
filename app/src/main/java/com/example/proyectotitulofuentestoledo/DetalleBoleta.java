@@ -61,14 +61,9 @@ public class DetalleBoleta extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 BoletaFinal boleta = documentSnapshot.toObject(BoletaFinal.class);
+                Log.w("DETALLE BOLETA", String.valueOf(boleta));
 
             }});
-            fecha = BoletaFinal.getFecha();
-            horaReserva = BoletaFinal.getHoraReserva();
-            horaIngreso = BoletaFinal.getHoraIngreso();
-            horaSalida = BoletaFinal.getHoraSalida();
-            tiempoUso = BoletaFinal.getTiempoUso();
-            totalPago = BoletaFinal.getTotalPago();
 
 
             }
