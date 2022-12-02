@@ -111,7 +111,6 @@ public class ReservaAdaptador extends FirestoreRecyclerAdapter<Estacionamiento, 
                                                         Log.w("DOCUMENTO ACTUALIZADO", "---->" + idReserva);
                                                     }
                                                 });
-
                                     }
                                     //CREA NUEVO REGISTRO DE RESERVA
                                     mDB.collection("registro_reserva").add(registroReserva).
