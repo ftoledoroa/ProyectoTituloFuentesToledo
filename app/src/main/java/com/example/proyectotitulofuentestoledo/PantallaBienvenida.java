@@ -17,12 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectotitulofuentestoledo.modelo.Boleta;
 import com.example.proyectotitulofuentestoledo.modelo.RegistroReserva;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -100,7 +103,6 @@ public class PantallaBienvenida extends AppCompatActivity {
             horaIngreso = dateFormat.format(calendar.getTime());
             fecha = dateFormatFecha.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
-
             tvResultadoCamara.setText("");
 
             mDB.collection("registro_reserva").whereEqualTo("userId",
@@ -153,13 +155,36 @@ public class PantallaBienvenida extends AppCompatActivity {
             horaSalida = dateFormat.format(calendar.getTime());
             String idTemporal = cargarIdRegistro();
             tvResultadoCamara.setText("");
+            String userId = mAuth.getCurrentUser().getUid();
 
             mDB.collection("registro_uso").document(idTemporal).update("horaSalida", horaSalida).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
                     Toast.makeText(PantallaBienvenida.this, "CheckOut Correcto", Toast.LENGTH_SHORT).show();
-                }
+                    horaReserva = "Sin Reserva";
+                    guardarHoraReserva();
+                    //IR A BD A CAMBIAR EL REGISTRO RESERVA DEL USUARIO A FALSE
+                    mDB.collection("registro_reserva").whereEqualTo("userId", userId).whereEqualTo("activo",true)
+                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String idReserva = document.getId();
+                                            //POR CADA DOCUMENTO ENCONTRADO ACTUALIZA EL ESTADO
+                                            mDB.collection("registro_reserva").document(idReserva).update("activo", false)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Log.w("DOCUMENTO ACTUALIZADO", "---->" + idReserva);
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                }
+                            });
 
+                }
             });
             Intent i = new Intent(PantallaBienvenida.this, DetalleBoleta.class);
             startActivity(i);
