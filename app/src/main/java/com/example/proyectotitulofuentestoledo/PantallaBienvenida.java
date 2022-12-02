@@ -41,6 +41,7 @@ public class PantallaBienvenida extends AppCompatActivity {
     private String horaSalida;
     private String horaReserva;
     public String idRegistro;
+    public String idReserva;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
@@ -54,7 +55,8 @@ public class PantallaBienvenida extends AppCompatActivity {
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
         Button btAdmin = (Button) findViewById(R.id.btAdministrador);
-        cargarIdRegistro();
+        //cargarIdRegistro();
+        //cargarHoraReserva();
         TextView tvTitulo = findViewById(R.id.tvTitulo);
         tvTitulo.setText(this.mAuth.getCurrentUser().getEmail());
 
@@ -62,8 +64,6 @@ public class PantallaBienvenida extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new IntentIntegrator(PantallaBienvenida.this).initiateScan();
-                /*Intent i = new Intent(PantallaBienvenida.this,Camara.class);
-                startActivity(i);*/
             }
         });
 
@@ -100,7 +100,7 @@ public class PantallaBienvenida extends AppCompatActivity {
             horaIngreso = dateFormat.format(calendar.getTime());
             fecha = dateFormatFecha.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
-            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
+
             tvResultadoCamara.setText("");
 
             mDB.collection("registro_reserva").whereEqualTo("userId",
@@ -113,43 +113,44 @@ public class PantallaBienvenida extends AppCompatActivity {
                         RegistroReserva registro = lista.get(i).toObject(RegistroReserva.class);
                         assert registro != null;
                         horaReserva = registro.getHoraReserva();
-                        Log.w("REGISTRO RESERVA","---->"+ horaReserva);//preguntar como obtener la ultima hora
-
+                        guardarHoraReserva();
+                        String horaTemporal = cargarHoraReserva();
+                        Log.w("REGISTRO RESERVA","---->"+ horaTemporal);//preguntar como obtener la ultima hora
                         //preguntar por como hacer diferencia de horas en minutos
-
                     }
+
+                    //CREAR NUEVO REGISTRO DE USO EN LA BASE DE DATOS
+                    String horaTemporal = cargarHoraReserva();
+                    Boleta boleta = new Boleta(userId, horaTemporal, horaIngreso, fecha, "");
+                    mDB.collection("registro_uso")
+                            .add(boleta)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //Log.d(this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    idRegistro = documentReference.getId();
+                                    guardarIdRegistro();
+                                    Toast.makeText(PantallaBienvenida.this, "CheckIn Correcto", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(String.valueOf(PantallaBienvenida.this), "Error adding document", e);
+                                    Toast.makeText(PantallaBienvenida.this, "Error al añadir registro", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    Intent i = new Intent(PantallaBienvenida.this, PantallaBienvenida.class);
+                    startActivity(i);
                 }
             });
 
-            //CREAR NUEVO REGISTRO DE USO EN LA BASE DE DATOS
-            mDB.collection("registro_uso")
-                    .add(boleta)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            //Log.d(this, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            idRegistro = documentReference.getId();
-                            guardarIdRegistro();
-                            Toast.makeText(PantallaBienvenida.this, "CheckIn Correcto", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(String.valueOf(PantallaBienvenida.this), "Error adding document", e);
-                            Toast.makeText(PantallaBienvenida.this, "Error al añadir registro", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-            Intent i = new Intent(PantallaBienvenida.this, PantallaBienvenida.class);
-            startActivity(i);
         }
 
         if(captura.equals("CheckOut")){
             dateFormat = new SimpleDateFormat("HH:mm:ss");
             horaSalida = dateFormat.format(calendar.getTime());
-            String userId = mAuth.getCurrentUser().getUid();
-            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
             String idTemporal = cargarIdRegistro();
             tvResultadoCamara.setText("");
 
@@ -158,18 +159,18 @@ public class PantallaBienvenida extends AppCompatActivity {
                 public void onSuccess(Void unused) {
                     Toast.makeText(PantallaBienvenida.this, "CheckOut Correcto", Toast.LENGTH_SHORT).show();
                 }
+
             });
             Intent i = new Intent(PantallaBienvenida.this, DetalleBoleta.class);
             startActivity(i);
         }
+        onRestart();
 
     }
     private String cargarIdRegistro() {
         SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
         String idTemporal = preferences.getString("idBoleta","no existe informacion");
-        Log.w("IDBOLETA","--->"+ idTemporal);
-
-
+        Log.w("cargarIdRegistro","--->"+ idTemporal);
         return idTemporal;
     }
 
@@ -179,83 +180,22 @@ public class PantallaBienvenida extends AppCompatActivity {
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("idBoleta",idBoleta);
-        Log.w("IDBOLETA","--->"+ idBoleta);
+        Log.w("guardarIdRegistro","--->"+ idBoleta);
         editor.commit();
     }
-    private String cargarHoraRegistro() {
-        SharedPreferences preferences=getSharedPreferences("temporal2", Context.MODE_PRIVATE);
-        String horaTemporal = preferences.getString("Hora Reserva","no existe informacion");
-        Log.w("Hora Reserva","--->"+ horaTemporal);
-
+    private String cargarHoraReserva() {
+        SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
+        String horaTemporal = preferences.getString("horaTemporal","Sin Reserva");
+        Log.w("cargarHoraReserva","--->"+ horaTemporal);
         return horaTemporal;
     }
-    private void guardarHoraRegistro() {
-        SharedPreferences preferences = getSharedPreferences("temporal2", Context.MODE_PRIVATE );
+    private void guardarHoraReserva() {
+        SharedPreferences preferences = getSharedPreferences("temporal", Context.MODE_PRIVATE );
         String horaTemporal =  horaReserva;
-
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("horaTemporal",horaReserva);
-        Log.w("Hora Reserva","--->"+ horaTemporal);
+        editor.putString("horaTemporal",horaTemporal);
+        Log.w("guardarHoraReserva","--->"+ horaTemporal);
         editor.commit();
     }
 
 }
-
-
-
-
-
-
-/*Button btCheckIn = findViewById(R.id.btCheckIn);
-        btCheckIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                horaIngreso = dateFormat.format(calendar.getTime());
-                String userId = mAuth.getCurrentUser().getUid();
-
-                Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, horaSalida);
-
-                mDB.collection("registro_reserva").whereEqualTo("userId",
-                        userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() { //para consultar una información especifica y acer un mach
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> lista = queryDocumentSnapshots.getDocuments();
-                            for(int i=0; i< lista.size(); i++){
-                                RegistroReserva r = lista.get(i).toObject(RegistroReserva.class);
-                                assert r != null;
-                                horaReserva = r.getHoraReserva(); //cambiar para hacer funcionar
-                        }
-                    }
-                });
-
-
-                mDB.collection("registro_uso")
-                        .add(boleta)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(String.valueOf(PantallaBienvenida.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                                Toast.makeText(PantallaBienvenida.this, "Nuevo Registro añadido", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(String.valueOf(PantallaBienvenida.this), "Error adding document", e);
-                                Toast.makeText(PantallaBienvenida.this, "Error al añadir registro", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-            }});*/
-
-
-
-            /* if compararIdquetengo con todos los id de la bdd
-            extraigo dato de horareserva
-            else
-            no encontre el id que me paso
-            todo lo anterior en un for
-            que va a iterar sobre el firebase
-
-            */
