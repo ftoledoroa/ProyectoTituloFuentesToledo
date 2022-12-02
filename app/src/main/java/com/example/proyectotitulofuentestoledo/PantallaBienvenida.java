@@ -47,6 +47,7 @@ public class PantallaBienvenida extends AppCompatActivity {
     public String idReserva;
     public String idEstacionamiento;
 
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 
@@ -121,6 +122,7 @@ public class PantallaBienvenida extends AppCompatActivity {
                         guardarHoraReserva();
                         String horaTemporal = cargarHoraReserva();
                         Log.w("REGISTRO RESERVA", "---->" + horaTemporal);//preguntar como obtener la ultima hora
+
                         //preguntar por como hacer diferencia de horas en minutos
                     }
 
@@ -202,6 +204,7 @@ public class PantallaBienvenida extends AppCompatActivity {
 
             });
         }
+
     }
 
     private String cargarIdRegistro() {
@@ -246,6 +249,7 @@ public class PantallaBienvenida extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("estacionamiento",estacionamiento);
         Log.w("guardarIdEstacionamiento","--->"+ estacionamiento);
+
         editor.commit();
     }
 

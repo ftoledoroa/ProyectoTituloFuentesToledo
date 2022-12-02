@@ -98,6 +98,22 @@ public class DetalleBoleta extends AppCompatActivity {
         });
 
 
+        //CONSEGUIR DOCUMENTO PARA MOSTRAR
+        DocumentReference docRef = mDB.collection("registro_uso").document(idTemporal);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                BoletaFinal boleta = documentSnapshot.toObject(BoletaFinal.class);
+                //Asignando las variables
+                fecha = boleta.getFecha();
+                horaIngreso = boleta.getHoraIngreso();
+                horaSalida = boleta.getHoraSalida();
+                horaReserva = boleta.getHoraReseva();
+                //Asignando a los TextViews
+                tvFecha.setText(fecha);
+                tvReserva.setText(horaReserva);
+                tvIngreso.setText(horaIngreso);
+                tvSalida.setText(horaSalida);
 
     }
 
@@ -122,6 +138,9 @@ public class DetalleBoleta extends AppCompatActivity {
         return precio;
     }
 
+        public static String funcionCalcularTotal(String horaIngreso, String horaSalida);{
+            Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida, tiempoUso, totalPago);
+            String totalAPagar = "10000";
 
 
 
@@ -129,6 +148,9 @@ public class DetalleBoleta extends AppCompatActivity {
         //Convierto ambos a un date
         //hago un between entre ambos
         //cargi en la variable totalAPagar el resultado de between
+
+
+        }*/
 
 
 
