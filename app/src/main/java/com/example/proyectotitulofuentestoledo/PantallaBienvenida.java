@@ -55,6 +55,8 @@ public class PantallaBienvenida extends AppCompatActivity {
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
         Button btAdmin = (Button) findViewById(R.id.btAdministrador);
         cargarIdRegistro();
+        TextView tvTitulo = findViewById(R.id.tvTitulo);
+        tvTitulo.setText(this.mAuth.getCurrentUser().getEmail());
 
         rlEscanear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,16 +101,11 @@ public class PantallaBienvenida extends AppCompatActivity {
             fecha = dateFormatFecha.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
             Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
-            /* if compararIdquetengo con todos los id de la bdd
-            extraigo dato de horareserva
-            else
-            no encontre el id que me paso
-            todo lo anterior en un for
-            que va a iterar sobre el firebase
+            tvResultadoCamara.setText("");
 
-            */
             mDB.collection("registro_reserva").whereEqualTo("userId",
-                    userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    userId).whereEqualTo("activo",
+                    true).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     List<DocumentSnapshot> lista = queryDocumentSnapshots.getDocuments();
@@ -116,11 +113,13 @@ public class PantallaBienvenida extends AppCompatActivity {
                         RegistroReserva registro = lista.get(i).toObject(RegistroReserva.class);
                         assert registro != null;
                         horaReserva = registro.getHoraReserva();
-                        Log.w("REGISTRO RESERVA","---->"+ horaReserva);//cambiar para hacer funcionar
+                        Log.w("REGISTRO RESERVA","---->"+ horaReserva);//preguntar como obtener la ultima hora
+
+                        //preguntar por como hacer diferencia de horas en minutos
+
                     }
                 }
             });
-
 
 
             //CREAR NUEVO REGISTRO DE USO EN LA BASE DE DATOS
@@ -152,12 +151,8 @@ public class PantallaBienvenida extends AppCompatActivity {
             horaSalida = dateFormat.format(calendar.getTime());
             String userId = mAuth.getCurrentUser().getUid();
             Boleta boleta = new Boleta(userId, horaReserva, horaIngreso, fecha, horaSalida);
-            String idTemporal = cargarIdRegistro(); //cargar id registro
-
-            //Log.d("PRUEBA","--->" + idBoleta);
-
-
-            //Toast.makeText(PantallaBienvenida.this, idRegistro, Toast.LENGTH_SHORT).show();
+            String idTemporal = cargarIdRegistro();
+            tvResultadoCamara.setText("");
 
             mDB.collection("registro_uso").document(idTemporal).update("horaSalida", horaSalida).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -173,7 +168,10 @@ public class PantallaBienvenida extends AppCompatActivity {
     private String cargarIdRegistro() {
         SharedPreferences preferences=getSharedPreferences("temporal", Context.MODE_PRIVATE);
         String idTemporal = preferences.getString("idBoleta","no existe informacion");
+        String horaTemporal = preferences.getString("Hora Reserva","no existe informacion");
         Log.w("IDBOLETA","--->"+ idTemporal);
+        Log.w("Hora Reserva","--->"+ horaTemporal);
+
 
         return idTemporal;
     }
@@ -187,9 +185,28 @@ public class PantallaBienvenida extends AppCompatActivity {
         Log.w("IDBOLETA","--->"+ idBoleta);
         editor.commit();
     }
+    private String cargarHoraRegistro() {
+        SharedPreferences preferences=getSharedPreferences("temporal2", Context.MODE_PRIVATE);
+        String horaTemporal = preferences.getString("Hora Reserva","no existe informacion");
+        Log.w("Hora Reserva","--->"+ horaTemporal);
 
+        return horaTemporal;
+    }
+    private void guardarHoraRegistro() {
+        SharedPreferences preferences = getSharedPreferences("temporal2", Context.MODE_PRIVATE );
+        String horaTemporal =  horaReserva;
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("horaTemporal",horaReserva);
+        Log.w("Hora Reserva","--->"+ horaTemporal);
+        editor.commit();
+    }
 
 }
+
+
+
+
 
 
 /*Button btCheckIn = findViewById(R.id.btCheckIn);
@@ -235,3 +252,13 @@ public class PantallaBienvenida extends AppCompatActivity {
 
             }});*/
 
+
+
+            /* if compararIdquetengo con todos los id de la bdd
+            extraigo dato de horareserva
+            else
+            no encontre el id que me paso
+            todo lo anterior en un for
+            que va a iterar sobre el firebase
+
+            */

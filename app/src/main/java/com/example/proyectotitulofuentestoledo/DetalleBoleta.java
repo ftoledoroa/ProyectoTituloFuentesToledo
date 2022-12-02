@@ -31,20 +31,6 @@ import java.util.List;
 
 public class DetalleBoleta extends AppCompatActivity {
 
-    private Calendar calendar;
-    private SimpleDateFormat dateFormat;
-    private SimpleDateFormat dateFormatFecha;
-    private String fecha;
-    private String horaIngreso;
-    private String horaSalida;
-    private String horaReserva;
-    private String tiempoUso;
-    private String totalPago;
-
-    public String idRegistro;
-
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +78,9 @@ public class DetalleBoleta extends AppCompatActivity {
 
         }
 
+        TextView totalapagar = (TextView) findViewById(R.id.tvPrecio);
+        totalapagar.setText(funcionCalcularTotal("entrada", "salida"));
+
         btPagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +89,6 @@ public class DetalleBoleta extends AppCompatActivity {
                 Intent i = new Intent(DetalleBoleta.this, PantallaBienvenida.class);
                 startActivity(i);
             }});
-
 
 
     }
