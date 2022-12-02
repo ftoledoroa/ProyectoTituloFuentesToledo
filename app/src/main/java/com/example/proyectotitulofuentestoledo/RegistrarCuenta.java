@@ -1,18 +1,16 @@
 package com.example.proyectotitulofuentestoledo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyectotitulofuentestoledo.modelo.Usuario;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.proyectotitulofuentestoledo.modelo.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,12 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegistrarCuenta extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -82,7 +76,7 @@ public class RegistrarCuenta extends AppCompatActivity {
                                         //FirebaseUser user = mAuth.getCurrentUser();
                                         //updateUI(user);
                                         //creando nuevo documento en la bd
-                                        Usuario usuario = new Usuario (apellido, nombre, correo, rut, password, 1, 1);
+                                        Usuario usuario = new Usuario (apellido, nombre, correo, rut, 1, 1);
                                         //mDB.collection("usuarios").add(usuario); // para añadir a la base de datos
 
                                         mDB.collection("usuarios")
