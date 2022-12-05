@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         //llamar a firebase
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
         // llamar a dos widgets
         Button btIniciarSesion = findViewById(R.id.btIniciarSesion);
         TextView tvTitulo = findViewById(R.id.tvTitulo);
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                                         Intent i = new Intent(MainActivity.this,PantallaBienvenida.class);
                                         startActivity(i);
 
-
                                     } else {
                                         Log.w("FIREBASE", "createUserWithEmail:failure", task.getException());
                                         Toast.makeText(MainActivity.this, "Authentication failed.",
@@ -71,11 +69,9 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                 }
-
             }
         });
 
-        //Hola a todos
 
         btCrearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +101,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     }
-
-// hola hola
-
-//aknlknasdflnflasd
