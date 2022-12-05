@@ -85,7 +85,7 @@ public class RegistrarCuenta extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
                                                         Log.d(String.valueOf(RegistrarCuenta.this), "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                        Toast.makeText(RegistrarCuenta.this, "Nuevo Usuario Regirstrado", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(RegistrarCuenta.this, "Nuevo Usuario Registrado", Toast.LENGTH_SHORT).show();
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {

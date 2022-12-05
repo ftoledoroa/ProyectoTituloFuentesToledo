@@ -17,11 +17,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
+    FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Button btCrearCuenta = findViewById(R.id.btCrearCuenta);
         EditText etPassword = findViewById(R.id.etPassword);
         TextView tvRecuperar = findViewById(R.id.tvOlvidopassword);
+        TextView tvAccesoAdmin = findViewById(R.id.tvAccesoAdmin);
 
         btIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,28 +52,26 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Ingrese todos los Campos", Toast.LENGTH_LONG).show();
                     return;
                 }
-                mAuth.signInWithEmailAndPassword(correo,pass)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("FIREBASE", "createUserWithEmail:success");
-                                    Toast.makeText(getApplicationContext(),"Bienvenido", Toast.LENGTH_LONG).show();
-                                    //FirebaseUser user = mAuth.getCurrentUser();
-                                    //updateUI(user);
-                                    Intent i = new Intent(MainActivity.this,PantallaBienvenida.class);
-                                    startActivity(i);
+                else {
+                    mAuth.signInWithEmailAndPassword(correo,pass)
+                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(),"Bienvenido", Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(MainActivity.this,PantallaBienvenida.class);
+                                        startActivity(i);
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("FIREBASE", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(MainActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
+
+                                    } else {
+                                        Log.w("FIREBASE", "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(MainActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
+
             }
         });
 
@@ -81,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this,RegistrarCuenta.class);
+                startActivity(i);
+            }
+
+        });
+        tvAccesoAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,LoginAdmin.class);
                 startActivity(i);
             }
 
