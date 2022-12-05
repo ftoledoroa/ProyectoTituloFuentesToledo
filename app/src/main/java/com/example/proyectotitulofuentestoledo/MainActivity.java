@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),"Bienvenido", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(MainActivity.this,PantallaBienvenida.class);
                                         startActivity(i);
-
                                     } else {
                                         Log.w("FIREBASE", "createUserWithEmail:failure", task.getException());
                                         Toast.makeText(MainActivity.this, "Authentication failed.",
