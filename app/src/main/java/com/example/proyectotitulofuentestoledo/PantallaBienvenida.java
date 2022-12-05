@@ -60,6 +60,8 @@ public class PantallaBienvenida extends AppCompatActivity {
         RelativeLayout rlEscanear = findViewById(R.id.rlEscanear);
         RelativeLayout rlReservar = findViewById(R.id.rlReserva);
         TextView tvUltimaBoleta = findViewById(R.id.tvUltimaBoleta);
+        //cargarIdRegistro();
+        //cargarHoraReserva();
         TextView tvTitulo = findViewById(R.id.tvTitulo);
         tvTitulo.setText(this.mAuth.getCurrentUser().getEmail());
 
